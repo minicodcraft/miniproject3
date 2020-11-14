@@ -54,7 +54,7 @@ int main() {
   cout << "After adding new players\n";
   players.display();
   cout << endl;
-  /*
+  
   //Remove players
   players.removePlayer("fastest");
   players.removePlayer("second");
@@ -76,6 +76,7 @@ int main() {
   players.display();
   cout << endl;
   
+  /*
   //Recover from the backup
   players = backup;
   cout << "After recovering from the backup\n";

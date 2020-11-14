@@ -83,7 +83,7 @@ unsigned LeaderBoard::getPlayerTime(const string& name) const{
 }
 
 void LeaderBoard::addPlayer (const string& user, unsigned time){
-  int rank;
+  int rank = 0;
   Player* finder = this->head_;
   while(finder != NULL){
     if(time > finder->seconds){
@@ -93,22 +93,62 @@ void LeaderBoard::addPlayer (const string& user, unsigned time){
   }
   delete finder;
 
-cout << "the rank is " << rank << endl;
   
-  Player* q = new Player();
-  q->username = user;
-  q->seconds = time;
-  q->next = NULL;
+  
+  Player* newPlayer = new Player();
+  newPlayer->username = user;
+  newPlayer->seconds = time;
+
+  
   if(rank == 0){
-    q->next = head_;
-    head_ = q;
+    newPlayer->next=head_;
+    head_=newPlayer;
   }
-  Player* temp = head_;
-  for(int loop = 0; loop < rank; loop++){
-    temp = temp->next;
+
+  else{
+    Player* temp = new Player();;
+    int count=1;
+    temp = head_;
+    while(count != rank)
+    {
+        temp = temp->next;
+        count++;
+    }
+    newPlayer->next = temp->next;
+    temp-> next = newPlayer;
+
   }
-  q->next = temp->next;
-  temp->next = q;
+}
 
+void LeaderBoard::removePlayer (const string& name){
+  int rank = 0;
+  Player* finder = this->head_;
+  while(finder != NULL){
+    if(name != finder->username){
+      rank++;
+    }
+    finder = finder->next;
+  }
+  delete finder;
 
+  Player* deletePlayer = new Player();
+  
+  if(rank == 0){
+    newPlayer->next=head_;
+    head_=newPlayer;
+  }
+
+  else{
+    Player* temp = new Player();;
+    int count=1;
+    temp = head_;
+    while(count != rank)
+    {
+        temp = temp->next;
+        count++;
+    }
+    newPlayer->next = temp->next;
+    temp-> next = newPlayer;
+
+  }
 }
