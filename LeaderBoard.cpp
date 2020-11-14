@@ -47,6 +47,7 @@ void LeaderBoard::display() const{
     loop++;
    }
    cout << "Tail is now " << tail_-> username << endl;
+   delete q;
 }
 
 string LeaderBoard::getPlayer(unsigned rank) const{
@@ -60,8 +61,54 @@ string LeaderBoard::getPlayer(unsigned rank) const{
     q = q->next;
     loop++;
    }
+   delete q;
 
   return user;
 
 }
 
+unsigned LeaderBoard::getPlayerTime(const string& name) const{
+  int time;
+  Player* q = this->head_;
+   while(q != NULL) {  
+    if(name == q->username){
+      time = q->seconds;
+    }
+    q = q->next;
+   }
+   delete q;
+
+  return time;
+
+}
+
+void LeaderBoard::addPlayer (const string& user, unsigned time){
+  int rank;
+  Player* finder = this->head_;
+  while(finder != NULL){
+    if(time > finder->seconds){
+      rank++;
+    }
+    finder = finder->next;
+  }
+  delete finder;
+
+cout << "the rank is " << rank << endl;
+  
+  Player* q = new Player();
+  q->username = user;
+  q->seconds = time;
+  q->next = NULL;
+  if(rank == 0){
+    q->next = head_;
+    head_ = q;
+  }
+  Player* temp = head_;
+  for(int loop = 0; loop < rank; loop++){
+    temp = temp->next;
+  }
+  q->next = temp->next;
+  temp->next = q;
+
+
+}

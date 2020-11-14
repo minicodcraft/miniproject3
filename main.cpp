@@ -31,9 +31,9 @@ int main() {
   for (int i = 0; i < 5; i++) {
     unsigned rank = rand() % playerNames.size() + 1;
     string name = players.getPlayer(rank);
-    cout << name << " is ranked #" << rank << endl;
-   // cout << ", with a record of ";
-    //cout << players.getPlayerTime(name) << endl;
+    cout << name << " is ranked #" << rank;
+    cout << ", with a record of ";
+    cout << players.getPlayerTime(name) << endl;
   }
   cout << endl;
   /*
@@ -42,6 +42,8 @@ int main() {
   cout << "The backup leaderboard:\n";
   backup.display();
   cout << endl;	
+  */
+
   
   //Add playing records from new players
   players.addPlayer("second", 2079);
@@ -52,7 +54,7 @@ int main() {
   cout << "After adding new players\n";
   players.display();
   cout << endl;
-
+  /*
   //Remove players
   players.removePlayer("fastest");
   players.removePlayer("second");
