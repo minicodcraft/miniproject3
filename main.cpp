@@ -31,7 +31,7 @@ int main() {
   for (int i = 0; i < 5; i++) {
     unsigned rank = rand() % playerNames.size() + 1;
     string name = players.getPlayer(rank);
-    cout << name << " is ranked #" << rank;
+    cout << name << " is ranked #" << rank << endl;
    // cout << ", with a record of ";
     //cout << players.getPlayerTime(name) << endl;
   }

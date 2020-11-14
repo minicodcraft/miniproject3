@@ -57,6 +57,7 @@ string LeaderBoard::getPlayer(unsigned rank) const{
     if(rank == loop+1){
       user = q->username;
     }
+    q = q->next;
     loop++;
    }
 
