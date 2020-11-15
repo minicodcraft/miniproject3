@@ -47,7 +47,6 @@ void LeaderBoard::display() const{
     loop++;
    }
    cout << "Tail is now " << tail_-> username << endl;
-   delete q;
 }
 
 string LeaderBoard::getPlayer(unsigned rank) const{
@@ -61,10 +60,25 @@ string LeaderBoard::getPlayer(unsigned rank) const{
     q = q->next;
     loop++;
    }
-   delete q;
 
   return user;
 
+}
+
+int LeaderBoard::getPlayerByUser(const string& name) const{
+  int rank;
+  int loop = 0;
+  Player* q = this->head_;
+   while(q != NULL) {  
+     //cout << q->username<< endl;
+    if(name == q->username){
+      rank = loop;
+    }
+    q = q->next;
+    loop++;
+   }
+
+  return rank;
 }
 
 unsigned LeaderBoard::getPlayerTime(const string& name) const{
@@ -76,7 +90,6 @@ unsigned LeaderBoard::getPlayerTime(const string& name) const{
     }
     q = q->next;
    }
-   delete q;
 
   return time;
 
@@ -84,14 +97,14 @@ unsigned LeaderBoard::getPlayerTime(const string& name) const{
 
 void LeaderBoard::addPlayer (const string& user, unsigned time){
   int rank = 0;
-  Player* finder = this->head_;
+  Player* finder = new Player();
+  finder = this->head_;
   while(finder != NULL){
     if(time > finder->seconds){
       rank++;
     }
     finder = finder->next;
   }
-  delete finder;
 
   
   
@@ -124,23 +137,14 @@ void LeaderBoard::addPlayer (const string& user, unsigned time){
 }
 
 void LeaderBoard::removePlayer (const string& name){
-  int rank = 2;
-  Player* finder = this->head_;
-  //while(finder != NULL && name != finder->username){
-  //  cout << "Name: " <<name << "  Username: " << finder->username<< endl;
-  //  rank++;
-  //  finder = finder->next;
-  //}
-  cout<< rank << endl;
-  delete finder;
+  int rank = getPlayerByUser(name);
 
   Player* deletePlayer = new Player();
   deletePlayer = head_;
   
   if(rank == 0){
-    deletePlayer->next = head_;
+    head_ = deletePlayer->next;
     delete deletePlayer;
-    cout<< "this run1" << endl;
   }
   else{
     for (int loop = 0; loop < rank - 1; loop++){
@@ -150,6 +154,21 @@ void LeaderBoard::removePlayer (const string& name){
     temp = deletePlayer->next->next;
     free(deletePlayer->next);  
     deletePlayer->next = temp; 
-    cout<< "this run2" << endl;
   }
+  if(deletePlayer-> next == nullptr){
+    tail_ = deletePlayer;
+  }
+}
+
+void LeaderBoard::updatePlayer (const string& name, unsigned time){
+  Player* finder = new Player();
+  finder = this->head_;
+  while(finder != NULL){
+    if(name == finder->username && time < finder->seconds){
+      removePlayer(name);
+      addPlayer(name, time);
+    }
+    finder = finder->next;
+  }
+
 }

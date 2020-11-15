@@ -25,6 +25,7 @@ class LeaderBoard {
 
     void display() const; //show the leader board.
     string getPlayer(unsigned rank) const; //return the name of the player by rank
+    int getPlayerByUser(const string& name) const;
     unsigned getPlayerTime(const string& username) const;  //get seconds for given player
     void addPlayer(const string& username, unsigned seconds); //add a new player to an appropriate place on the leaderboard
     void removePlayer(const string& username); //remove a player by username
