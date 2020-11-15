@@ -64,7 +64,7 @@ int main() {
   cout << "After removing the new players\n";
   players.display();
   cout << endl;
-
+/*
   //Submit new time for existing players
   players.updatePlayer("coldeggman", 2035);
   players.updatePlayer("G_heinz", 2022);
@@ -76,7 +76,7 @@ int main() {
   players.display();
   cout << endl;
   
-  /*
+  
   //Recover from the backup
   players = backup;
   cout << "After recovering from the backup\n";

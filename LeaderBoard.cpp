@@ -116,39 +116,40 @@ void LeaderBoard::addPlayer (const string& user, unsigned time){
     }
     newPlayer->next = temp->next;
     temp-> next = newPlayer;
+    if(newPlayer->next == nullptr){
+      tail_ = newPlayer;
+    }
 
   }
 }
 
 void LeaderBoard::removePlayer (const string& name){
-  int rank = 0;
+  int rank = 2;
   Player* finder = this->head_;
-  while(finder != NULL){
-    if(name != finder->username){
-      rank++;
-    }
-    finder = finder->next;
-  }
+  //while(finder != NULL && name != finder->username){
+  //  cout << "Name: " <<name << "  Username: " << finder->username<< endl;
+  //  rank++;
+  //  finder = finder->next;
+  //}
+  cout<< rank << endl;
   delete finder;
 
   Player* deletePlayer = new Player();
+  deletePlayer = head_;
   
   if(rank == 0){
-    newPlayer->next=head_;
-    head_=newPlayer;
+    deletePlayer->next = head_;
+    delete deletePlayer;
+    cout<< "this run1" << endl;
   }
-
   else{
-    Player* temp = new Player();;
-    int count=1;
-    temp = head_;
-    while(count != rank)
-    {
-        temp = temp->next;
-        count++;
+    for (int loop = 0; loop < rank - 1; loop++){
+      deletePlayer = deletePlayer->next;
     }
-    newPlayer->next = temp->next;
-    temp-> next = newPlayer;
-
+    Player* temp = new Player();
+    temp = deletePlayer->next->next;
+    free(deletePlayer->next);  
+    deletePlayer->next = temp; 
+    cout<< "this run2" << endl;
   }
 }
